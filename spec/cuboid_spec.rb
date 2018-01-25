@@ -24,6 +24,7 @@ describe Cuboid do
     subject(:cube1) {Cuboid.new({x:0, y:0, z:0}, 1, 1, 1)}
     subject(:cube2) {Cuboid.new({x:0, y:0, z:0}, 2, 2, 2)}
     subject(:cube3) {Cuboid.new({x:2, y:2, z:2}, 1, 1, 1)}
+    subject(:cube4) {Cuboid.new({x:-2, y:-2, z:-2}, 3, 3, 3)}
 
     it "returns true when two cubes intersect" do 
       expect(cube1.intersects?(cube2)).to be true
@@ -34,6 +35,20 @@ describe Cuboid do
       expect(cube1.intersects?(cube3)).to be false
     end 
 
+    it "works when the origin is negative" do 
+      expect(cube4.intersects?(cube1)).to be true
+      expect(cube4.intersects?(cube3)).to be false
+    end 
+
+  end 
+
+  describe "#vertices" do 
+    subject(:cube) {Cuboid.new({x:0, y:0, z:0}, 1, 1, 1)}
+    
+    it "finds the correct vertices for a given cube" do 
+      expect(cube.vertices).to be == [{x:0, y:0, z:0}, {x:0, y:0, z:1}, {x:0, y:1, z:0}, {x:0, y:1, z:1}, 
+                                      {x:1, y:0, z:0}, {x:1, y:0, z:1}, {x:1, y:1, z:0}, {x:1, y:1, z:1}]
+    end 
   end 
  
   describe "move_to" do
