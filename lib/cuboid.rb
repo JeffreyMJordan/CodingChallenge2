@@ -32,9 +32,9 @@ class Cuboid
   end 
   
   def move_to!(x, y, z)
-    @origin[:x] += x 
-    @origin[:y] += y 
-    @origin[:z] += z
+    @origin[:x] = x 
+    @origin[:y] = y 
+    @origin[:z] = z
   end
   
 
@@ -51,14 +51,12 @@ class Cuboid
     vertices_arr 
   end
   
-  #returns true if the two cuboids intersect each other.  False otherwise.
-
-  #How do I tell if they're overlapping? 
+  #Returns true if the two cuboids intersect each other.  False otherwise.
   #To do this, we first figure out how we can tell if two 1-D objects overlap 
-  # Assume two lines have (min1, max1) and (min2, max2)
-  #We then see if max1>=min2 && min1<=max2
-  #We then repeat the process for each dimension
-  #If they overlap in all 3 dimensions, then we return true 
+  #Assume two lines have (min1, max1) and (min2, max2)
+  #We then see if max1>=min2 && min1<=max2 is true, which means the lines overlap
+  #We then repeat this process for each dimension
+  #If the cubes overlap in all 3 dimensions, then we return true 
   def intersects?(other)
     ((x_coords.max >= other.x_coords.min && x_coords.min <= other.x_coords.max) && 
     (y_coords.max >= other.y_coords.min && y_coords.min <= other.y_coords.max) && 

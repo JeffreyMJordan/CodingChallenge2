@@ -52,9 +52,18 @@ describe Cuboid do
   end 
  
   describe "move_to" do
+    subject(:cube) {Cuboid.new({x:-1, y:-1, z:-1}, 1, 1, 1)}
+
     it "changes the origin in the simple happy case" do
-      expect(subject.move_to!(1,2,3)).to be
+      cube.move_to!(0, 0, 0)
+      expect(cube.origin).to be == {x:0, y:0, z:0}
     end
+
+    it "updates vertices correctly" do 
+      cube.move_to!(0,0,0) 
+      expect(cube.vertices).to be == [{x:0, y:0, z:0}, {x:0, y:0, z:1}, {x:0, y:1, z:0}, {x:0, y:1, z:1}, 
+                                      {x:1, y:0, z:0}, {x:1, y:0, z:1}, {x:1, y:1, z:0}, {x:1, y:1, z:1}]
+    end 
   end    
   
   describe "intersects?" do
