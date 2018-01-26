@@ -1,11 +1,10 @@
 
 class Cuboid
+  
   attr_reader :origin, :height, :width, :length
 
 
-  #I'm assuming no negative length
   def initialize(origin={x:0, y:0, z:0}, length=0, width=0, height=0)
-
     if !(origin.is_a? Hash) || (!origin[:x] || !origin[:y] || !origin[:z])
       raise "Origin must be of the form {x: , y: , z: }"
     end 
@@ -14,10 +13,7 @@ class Cuboid
     @length = length
     @width = width
     @height = height
-    
-
   end
-  #BEGIN public methods that should be your starting point
 
   def x_coords
     [@origin[:x], @origin[:x] + @length]
@@ -36,7 +32,6 @@ class Cuboid
     @origin[:y] = y 
     @origin[:z] = z
   end
-  
 
   #Each cube has 8 vertices
   def vertices
@@ -63,5 +58,28 @@ class Cuboid
     (z_coords.max >= other.z_coords.min && z_coords.min <= other.z_coords.max))
   end
 
-  #END public methods that should be your starting point  
+  #Always keep origin the same 
+  #The axis is the line on the cuboid that we're keeping the same 
+  #I interpreted your directions to mean that the origin point was on a floor, (meaning this isn't a proper R^3 space rotation)
+  #To be honest, I was a bit confused by the directions here, so my apologies if this is incorrect
+  def rotate(axis)
+    raise "axis must be :x, :y, or :z" if ![:x, :y, :z].include?(axis)
+
+    #Swap width and length
+    #height corresponds to x 
+    if axis == :x 
+      @width, @height = @height, @width
+    
+    #width corresponds to y 
+    #swap height and length
+    elsif axis == :y 
+      @height, @length = @length, @height 
+    
+    #height corresponds to z
+    #swap length and width
+    elsif axis == :z 
+      @length, @width = @width, @length
+    end 
+  end 
+
 end

@@ -66,7 +66,33 @@ describe Cuboid do
     end 
   end    
   
-  describe "intersects?" do
-  end
+  describe "#rotate" do 
+    subject(:cube) {Cuboid.new({x:0, y:0, z:0}, 1, 2, 3)}
+    it "must rotate on x, y, or z axis" do 
+      expect{cube.rotate(:a)}.to raise_error "axis must be :x, :y, or :z"
+    end 
+
+    it "rotates objects correctly on x axis" do 
+      cube.rotate(:x) 
+      expect(cube.origin).to be == {x: 0, y: 0 , z: 0 }
+      expect(cube.width).to be == 3
+      expect(cube.height).to be == 2
+    end 
+
+    it "rotates objects correctly on y axis" do 
+      cube.rotate(:y) 
+      expect(cube.origin).to be == {x:0, y:0, z:0}
+      expect(cube.height).to be == 1
+      expect(cube.length).to be == 3
+    end 
+
+    it "rotates objects correctly on z axis" do 
+      cube.rotate(:z) 
+      expect(cube.origin).to be == {x:0, y:0, z:0}
+      expect(cube.width).to be == 1
+      expect(cube.length).to be == 2
+    end 
+
+  end 
 
 end
